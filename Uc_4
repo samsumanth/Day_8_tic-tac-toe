@@ -1,0 +1,80 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class Game 
+{
+	public char[][] gameboard = {{' ','|',' ','|',' '},{'-','+','-','+','-'},{' ','|',' ','|',' '},{'-','+','-','+','-'},{' ','|',' ','|',' '}};
+	public Scanner sc = new Scanner(System.in);
+
+	public void gameBorad() 
+	{
+		for (int i = 0; i < gameboard.length; i++) 
+		{
+			System.out.println(gameboard[i]);
+		}
+	}
+	
+	public char selectSymbol() 
+	{
+		System.out.println("Select your choice (X/O):");
+		return sc.next().charAt(0);
+	}
+  
+	public void placePiece( char symbol, int playerPosition )
+	{
+		switch (playerPosition) 
+		{
+		case 1:
+			gameboard [0][0] = symbol;
+			break;
+		case 2:
+			gameboard [0][2] = symbol;
+			break;
+		case 3:
+			gameboard [0][4] = symbol;
+			break;
+		case 4:
+			gameboard [2][0] = symbol;
+			break;
+		case 5:
+			gameboard [2][2] = symbol;
+			break;
+		case 6:
+			gameboard [2][4] = symbol;
+			break;
+		case 7:
+			gameboard [4][0] = symbol;
+			break;
+		case 8:
+			gameboard[4][2] = symbol;
+			break;
+		case 9:
+			gameboard[4][4] = symbol;
+			break;
+		default:
+			System.out.println("Enter correct choice:");
+			break;
+		}
+
+	}
+}
+
+public class PlayerMovesUC_4 
+{
+	
+	public static List<Integer> playermoves= new ArrayList<Integer>();
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		Game game = new Game();
+		char Symbol = game.selectSymbol();
+				
+			System.out.println("Enter your move (1-9):");
+			int playerPosition = sc.nextInt();
+			
+			game.placePiece(Symbol,playerPosition);
+			game.gameBorad();
+			
+	}
+
+}
