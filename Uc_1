@@ -1,0 +1,17 @@
+class Game {
+	
+	public char[][] gameboard = {{' ','|',' ','|',' '},{'-','+','-','+','-'},{' ','|',' ','|',' '},{'-','+','-','+','-'},{' ','|',' ','|',' '}};
+	
+	public void gameBorad() {
+		for (int i = 0; i < gameboard.length; i++) {
+			System.out.println(gameboard[i]);
+		}
+	}
+}
+
+public class GameBoardUC_1 {
+	
+	public static void main(String[] args) {
+		Game game = new Game();
+		
+	}
