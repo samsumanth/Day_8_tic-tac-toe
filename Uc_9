@@ -1,0 +1,193 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
+class Game 
+{
+	public char[][] gameboard = {{' ','|',' ','|',' '},{'-','+','-','+','-'},{' ','|',' ','|',' '},{'-','+','-','+','-'},{' ','|',' ','|',' '}};
+	public Scanner sc = new Scanner(System.in);
+	public char symbol = ' ';
+	public void gameBorad() 
+	{
+		for (int i = 0; i < gameboard.length; i++) 
+		{
+			System.out.println(gameboard[i]);
+		}
+	}
+	
+	public void placePiece( String Player, int playerPosition )
+	{
+		if (Player.equalsIgnoreCase("Player")) 
+		{
+			symbol = 'X';
+		} 
+		else if(Player.equalsIgnoreCase("CPU")) 
+		{
+			symbol = 'O';
+		}
+		switch (playerPosition) 
+		{
+		case 1:
+			gameboard [0][0] = symbol;
+			break;
+		case 2:
+			gameboard [0][2] = symbol;
+			break;
+		case 3:
+			gameboard [0][4] = symbol;
+			break;
+		case 4:
+			gameboard [2][0] = symbol;
+			break;
+		case 5:
+			gameboard [2][2] = symbol;
+			break;
+		case 6:
+			gameboard [2][4] = symbol;
+			break;
+		case 7:
+			gameboard [4][0] = symbol;
+			break;
+		case 8:
+			gameboard[4][2] = symbol;
+			break;
+		case 9:
+			gameboard[4][4] = symbol;
+			break;
+		default:
+			System.out.println("Enter correct choice:");
+			break;
+		}
+
+	}
+}
+
+
+public class Block_Opponent 
+{
+	public static List<Integer> playermoves= new ArrayList<Integer>();
+
+	public static void main(String args[]) 
+	{
+		Scanner sc = new Scanner(System.in);
+		Random ran = new Random();
+		
+		int whichPlayerTurn = ran.nextInt(2)+1;
+		Game game = new Game();
+		
+		int playerPosition = 0,cpuPosition = 0;
+				
+		if (whichPlayerTurn == 1) 
+		{
+			System.out.println("Player won toss:");
+			System.out.println("Enter your move (1-9):");
+			
+			playerPosition = sc.nextInt();
+			
+			game.placePiece("Player", playerPosition);
+			System.out.println("This is Human player move:");
+			
+			game.gameBorad();
+			playermoves.add(playerPosition);
+		}
+		else if (whichPlayerTurn == 2)
+		{
+			System.out.println("CPU won toss:");
+			System.out.println("This is CPU move");
+			
+			cpuPosition = ran.nextInt(9)+1;
+			System.out.println("Cpu="+cpuPosition);
+			
+			game.placePiece("CPU", cpuPosition);
+			
+			game.gameBorad();
+			playermoves.add(cpuPosition);
+		}
+
+		int isCheck = 1;
+		boolean playerRepeatemove = false;
+		boolean cpuRepeatemove = false;
+		while(isCheck <= 9)
+		{
+			System.out.println("Enter your move (1-9):");
+			playerPosition = sc.nextInt();
+			
+			if (playerPosition == 1) 
+			{
+				System.out.println("CPU turn:");
+				cpuPosition = ran.nextInt(3-2)+1+2;
+			}
+			else if (playerPosition == 2) 
+			{
+				System.out.println("CPU turn:");
+				cpuPosition = ran.nextInt(3-2)+1+2;
+			}
+			else if(playerPosition == 3)
+			{
+				System.out.println("CPU turn:");
+				cpuPosition = ran.nextInt(6)+1;
+			}
+			else if(playerPosition == 4)
+			{
+				System.out.println("CPU turn:");
+				cpuPosition = ran.nextInt(6-5)+1+5;//randomly genrating only 6
+			}
+			else if(playerPosition == 5)
+			{
+				System.out.println("CPU turn:");
+				cpuPosition = ran.nextInt(4-3)+1+3;
+			}
+			else if(playerPosition == 6)
+			{
+				System.out.println("CPU turn:");
+				cpuPosition = ran.nextInt(5-4)+1+4;
+			}
+			
+			else 
+			{
+				System.out.println("CPU turn:");
+				cpuPosition = ran.nextInt(9)+1;
+			}
+			
+			for(int playerMove: playermoves) {
+				if(playerPosition == playerMove) 
+				{
+					playerRepeatemove = true;
+				}
+				
+				if(cpuPosition == playerMove)
+				{
+					cpuRepeatemove = true;
+				}
+			}
+			
+			if(playerRepeatemove) 
+			{
+				playerRepeatemove= false;
+				System.out.println("This position will already picked choose another position:");
+				continue;
+			}
+
+			game.placePiece("player",playerPosition);
+			System.out.println("\n\n\nHuman player move:");
+			game.gameBorad();
+			playermoves.add(playerPosition);
+
+			if(cpuRepeatemove)
+			{
+				cpuRepeatemove = false;
+				System.out.println("CPU--> this position already filled:");
+				continue;
+			}
+			
+			game.placePiece("CPU", cpuPosition);
+			System.out.println("\n\n\nThis is CPU move:");
+			game.gameBorad();
+			playermoves.add(cpuPosition);
+			
+			isCheck ++;
+		}
+
+	}
+}
