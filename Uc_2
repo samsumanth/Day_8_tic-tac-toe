@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+class Game {
+	
+	public char[][] gameboard = {{' ','|',' ','|',' '},{'-','+','-','+','-'},{' ','|',' ','|',' '},{'-','+','-','+','-'},{' ','|',' ','|',' '}};
+	public Scanner sc = new Scanner(System.in);
+	
+	public char selectSymbol() 
+	{
+		System.out.println("Select your choice (X/O):");
+		return sc.next().charAt(0);
+	}
+
+}
+
+public class PlayerUC_2 {
+	
+	public static Scanner sc = new Scanner(System.in);
+	
+	public static void main(String[] args) {
+		Game game = new Game();
+		System.out.println();
+		char Symbol = game.selectSymbol();
+				
+	}
+
+}
